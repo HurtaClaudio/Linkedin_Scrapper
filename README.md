@@ -1,4 +1,6 @@
 # Linkedin_Scrapper
+### Specially thougt for latin people searching for a job overseas.
+
 A scrapper to filter the jobs you need.
 This scrapper specifically filter out companies that doesn't hire people from latin america.
 
