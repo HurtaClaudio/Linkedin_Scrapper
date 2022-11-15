@@ -53,14 +53,17 @@ def scrollear_al_job(driver, nro_job):
         time.sleep(.2)
     return None
 
-def read_keys_from_txt():
+def read_keys_and_jobquery_from_txt():
     # To store lines
     keys = {}
+    job_query_urls = []
     with open('keys.txt', 'r') as fp:
         for i, line in enumerate(fp):
             # read line 0 and 1
             if i == 0:
                 keys['user'] = line.strip()
-            else:
+            elif i == 1:
                 keys['pass'] = line.strip()
-    return keys
+            else:
+                job_query_urls.append(line.strip())
+    return keys, job_query_urls
