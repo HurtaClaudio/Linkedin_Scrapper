@@ -1,0 +1,2 @@
+example@example.com
+johndoe123secretpassword
