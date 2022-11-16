@@ -67,3 +67,53 @@ def read_keys_and_jobquery_from_txt():
             else:
                 job_query_urls.append(line.strip())
     return keys, job_query_urls
+
+def iniciar_driver():
+    print("Iniciamos webdriver")
+    ### Corrida CHROME
+
+    options = webdriver.ChromeOptions()
+    options.add_argument("start-maximized")
+    #options.add_argument('headless')
+    options.add_argument('no-sandbox')
+    print("Establecemos opciones.")
+    return webdriver.Chrome(ChromeDriverManager().install(), chrome_options=options)
+
+def ingresar_linkedin(driver, keys):
+    # Ingresamos al portal
+    url = 'https://www.linkedin.com'
+    driver.get(url)
+    WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.XPATH, "//button[@class='sign-in-form__submit-button']")))
+
+    # ponemos las credenciales
+
+    # Mail
+    mail_str = keys['user']
+    mail = driver.find_element(By.XPATH, "//input[@id='session_key']")
+    mail.clear()
+    mail.send_keys(mail_str)
+    time.sleep(.2)
+
+
+
+    # Contraseña
+    psw_str = keys['pass']
+    psw = driver.find_element(By.XPATH, "//input[@id='session_password']")
+    psw.clear()
+    psw.send_keys(psw_str)
+    time.sleep(.2)
+
+
+    # Presionamos botón de inicio
+    boton_actuales = driver.find_element(By.XPATH, "//button[@class='sign-in-form__submit-button']")
+    action = ActionChains(driver)
+    action.move_to_element(boton_actuales)
+    action.click().perform()
+    print('Presionamos botón de incio de sesión')
+
+    #Esperamos a que cargue la pagina
+    WebDriverWait(driver, 15).until(
+        EC.element_to_be_clickable((By.XPATH, "//button[@id='ember28']")))
+    return None
+
