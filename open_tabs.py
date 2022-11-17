@@ -13,15 +13,14 @@ driver = iniciar_driver()
 ingresar_linkedin(driver, keys)
 
 
-posts = 0
-for posts in range(len(urls)):
-    print(posts)
-    driver.get(urls[posts])    
-    if(posts!=len(urls)-1):
+for job in range(len(urls)):
+    print(f'Oferta nro {job} abierta.')
+    driver.get(urls[job])    
+    if(job!=len(urls)-1):
        driver.execute_script("window.open('');")
        chwd = driver.window_handles
        driver.switch_to.window(chwd[-1])
-       time.sleep(3)
+       time.sleep(.5)
 
 counter = 0
 while(True):
