@@ -93,22 +93,24 @@ for job_query in job_query_urls:
                 n = int(n)
                 print(location, n)
                 # ahora sí! usamos la API
-                location_api = geolocator.geocode(location)[0]
-                last_comma_idx = len(location_api) - location_api[::-1].find(',')
-
-                if last_comma_idx != len(location_api) + 1:
-                    location = location_api[last_comma_idx:].strip()
-                else:
-                    location = location_api
-
-                # Sumamos los empleados al diccionario
                 try:
-                    # Tratamos de agregar si esque ya está el país en la lista
-                    employees_dict[location] += n
-                except:
-                    # si no está, lo incluimos
-                    employees_dict[location] = n
+                    location_api = geolocator.geocode(location)[0]
+                    last_comma_idx = len(location_api) - location_api[::-1].find(',')
 
+                    if last_comma_idx != len(location_api) + 1:
+                        location = location_api[last_comma_idx:].strip()
+                    else:
+                        location = location_api
+
+                    # Sumamos los empleados al diccionario
+                    try:
+                        # Tratamos de agregar si esque ya está el país en la lista
+                        employees_dict[location] += n
+                    except:
+                        # si no está, lo incluimos
+                        employees_dict[location] = n
+                except:
+                    print('Ubicación no fue encontrada en por la API.')
 
             #agregamos un loop para buscar en paises latinos.
             paises_latinos = ['chile', 'argentina', 'peru', 'colombia', 'ecuador', 'brasil', 'venezuela', 'costa rica', 'cuba', 'mexico']
